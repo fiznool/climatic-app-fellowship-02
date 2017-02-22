@@ -1,0 +1,42 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-calm">
+    <button class="button button-icon button-icon-small icon ion-close-round" ng-click="$ctrl.dismissModal()"></button>
+    <h1 class="title">Add Post</h1>
+    <button class="button button-icon button-icon-small icon ion-checkmark-round" ng-click="$ctrl.saveModalData()"></button>
+  </ion-header-bar>
+  <ion-content>
+    <form name="$ctrl.newPostForm" novalidate ng-submit="$ctrl.saveModalData()">
+      <div class="list">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Title</span>
+          <input type="text" name="title" placeholder="Title" ng-model="$ctrl.newPostData.title" required ng-minlength="2" ng-maxlength="30">
+        </label>
+        <div class="item-input-errors" ng-messages="$ctrl.newPostForm.title.$error" ng-if="$ctrl.newPostForm.title.$touched || $ctrl.newPostForm.$submitted">
+          <div class="input-item-error" ng-message="required">Title is required.</div>
+          <div class="input-item-error" ng-message="minlength">Title should be 2 characters or more.</div>
+          <div class="input-item-error" ng-message="maxlength">Title should be 30 characters or less.</div>
+        </div>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Description</span>
+          <textarea name="description" placeholder="Description" msd-elastic ng-model="$ctrl.newPostData.description" required ng-minlength="10" ng-maxlength="500"></textarea>
+        </label>
+        <div class="item-input-errors" ng-messages="$ctrl.newPostForm.description.$error" ng-if="$ctrl.newPostForm.description.$touched || $ctrl.newPostForm.$submitted">
+          <div class="input-item-error" ng-message="required">Description is required.</div>
+          <div class="input-item-error" ng-message="minlength">Description should be 10 characters or more.</div>
+          <div class="input-item-error" ng-message="maxlength">Description should be 500 characters or less.</div>
+        </div>
+      </div>
+      <div class="padding">
+        <button type="button" class="button button-outline button-positive" ng-click="$ctrl.addPicture()"><i class="icon ion-camera"></i>&nbsp;&nbsp;{{ $ctrl.newPostData.picture ? 'Retake Picture' : 'Take Picture' }}</button>
+        <div class="padding-top add-post-image-wrapper" ng-if="$ctrl.newPostData.picture">
+          <img class="full-image" ng-src="data:image/jpeg;base64,{{$ctrl.newPostData.picture}}">
+          <i class="button button-icon icon ion-close-circled" ng-click="$ctrl.removePicture()"></i>
+        </div>
+        <input type="hidden" name="picture" ng-model="$ctrl.newPostData.picture" required>
+        <div class="item-input-errors" ng-messages="$ctrl.newPostForm.picture.$error" ng-if="$ctrl.newPostForm.picture.$touched || $ctrl.newPostForm.$submitted">
+          <div class="input-item-error" ng-message="required">Picture is required.</div>
+        </div>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
